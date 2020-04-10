@@ -24,6 +24,3 @@ class SRC_Transformer(Transformer):
 class GeoTools:
     def __init__(self):
         return
-
-    @staticmethod
-    def crs_convert(source_crs, target_crs):
