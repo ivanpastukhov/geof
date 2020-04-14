@@ -8,6 +8,6 @@ setup(
     author='Ivan Pastukhov',
     author_email='ivanpastukhoff@gmail.com',
     license='unlicense',
-    packages=['geof', 'geoplotting'],
+    packages=['geof'],
     zip_safe=False
 )
