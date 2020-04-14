@@ -53,7 +53,3 @@ class SRC_Transformer:
         """Transforms SRC from EPSG:4326 (WGS84) to EPSG:3857 (Web Mercator)"""
         return self.transformer.transform(lat, lon)
 
-
-class GeoTools:
-    def __init__(self):
-        return
