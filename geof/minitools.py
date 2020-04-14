@@ -32,7 +32,7 @@ class OverpassWrapper:
         # парсим json'ы внутри датафрейма
         if not all(name in df.columns for name in colnames_expected):
             logger.warning(f'Colnames are expected: {colnames_expected}, but passed: {df.columns}')
-        df = ({'type': lambda x: x, 'id': lambda x: x, 'geometry': pd.Series, 'properties': pd.Series})
+        df = df.agg({'type': lambda x: x, 'id': lambda x: x, 'geometry': pd.Series, 'properties': pd.Series})
         if (droplevel_axis != None) and (droplevel_level != None):
             df = df.droplevel(level=droplevel_level, axis=droplevel_axis)
         return df
