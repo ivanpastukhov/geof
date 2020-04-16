@@ -142,7 +142,7 @@ class GeoPlot:
                    y_axis_type='mercator',
                    tooltips=tooltips)
         p.add_tile(self.provider)
-        p.circle('x', 'y', data=data)
+        p.circle('x', 'y', source=data)
         p.hover.policy = 'follow_mouse'
         show(p)
         return
