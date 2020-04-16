@@ -93,7 +93,3 @@ class SRC_Transformer:
     def transform(self, lat, lon):
         """Transforms SRC from EPSG:4326 (WGS84) to EPSG:3857 (Web Mercator)"""
         return self.transformer.transform(lat, lon)
-
-import overpy
-
-overpy.Node.
