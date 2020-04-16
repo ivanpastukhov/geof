@@ -78,26 +78,26 @@ class OverpassWrapper:
         except(ValueError, TypeError):
             return default
 
-    # TODO: тесты на корректность парсинга
-    @staticmethod
-    def overpass_to_df(features, droplevel_level=0, droplevel_axis=1):
-        """
-        Parse data from Overpass API to pandas.DataFrame
-         :param features: array-like
-         :param droplevel_level: parameter for pandas.DataFrame 'droplevel' method
-         :param droplevel_axis: parameter for pandas.DataFrame 'droplevel' method
-         :return:
-         pandas.DataFrame
-        """
-        colnames_expected = ['type', 'id', 'geometry', 'properties']
-        df = pd.DataFrame(features)
-        # парсим json'ы внутри датафрейма
-        if not all(name in df.columns for name in colnames_expected):
-            logger.warning(f'Colnames are expected: {colnames_expected}, but passed: {df.columns}')
-        df = df.agg({'type': lambda x: x, 'id': lambda x: x, 'geometry': pd.Series, 'properties': pd.Series})
-        if (droplevel_axis is not None) and (droplevel_level is not None):
-            df = df.droplevel(level=droplevel_level, axis=droplevel_axis)
-        return df
+    # # TODO: тесты на корректность парсинга
+    # @staticmethod
+    # def overpass_to_df(features, droplevel_level=0, droplevel_axis=1):
+    #     """
+    #     Parse data from Overpass API to pandas.DataFrame
+    #      :param features: array-like
+    #      :param droplevel_level: parameter for pandas.DataFrame 'droplevel' method
+    #      :param droplevel_axis: parameter for pandas.DataFrame 'droplevel' method
+    #      :return:
+    #      pandas.DataFrame
+    #     """
+    #     colnames_expected = ['type', 'id', 'geometry', 'properties']
+    #     df = pd.DataFrame(features)
+    #     # парсим json'ы внутри датафрейма
+    #     if not all(name in df.columns for name in colnames_expected):
+    #         logger.warning(f'Colnames are expected: {colnames_expected}, but passed: {df.columns}')
+    #     df = df.agg({'type': lambda x: x, 'id': lambda x: x, 'geometry': pd.Series, 'properties': pd.Series})
+    #     if (droplevel_axis is not None) and (droplevel_level is not None):
+    #         df = df.droplevel(level=droplevel_level, axis=droplevel_axis)
+    #     return df
 
 
 class SRCTransformer:
