@@ -9,10 +9,14 @@ logger = logging.getLogger('geof.utils')
 logger.setLevel(logging.DEBUG)
 
 
-## TODO: добавить проверку статуса на сервере OSM
+# TODO: добавить проверку статуса на сервере OSM
 class OverpassWrapper:
     def __init__(self):
         self.api = overpy.Overpass()
+        self.data = None
+        self.nodes = None
+        self.ways = None
+        self.relations = None
         return
 
     def request_data(self, query):
@@ -22,7 +26,7 @@ class OverpassWrapper:
         mapping = lambda x: dict(
             {
                 'id': x.id,
-                'item_type':'node',
+                'item_type': 'node',
                 'lat': self._safe_cast(x.lat, float),
                 'lon': self._safe_cast(x.lon, float),
                 'attributes': x.attributes
@@ -31,11 +35,11 @@ class OverpassWrapper:
         return map(mapping, nodes)
 
     def parse_ways(self, ways):
-        ## TODO: парсить ноды в ways
+        # TODO: парсить ноды в ways
         mapping = lambda x: dict(
             {
                 'id': x.id,
-                'item_type':'way',
+                'item_type': 'way',
                 'lat': self._safe_cast(x.center_lat, float),
                 'lon': self._safe_cast(x.center_lon, float),
                 'attributes': x.attributes
@@ -44,11 +48,11 @@ class OverpassWrapper:
         return map(mapping, ways)
 
     def parse_relations(self, relations):
-        ## TODO: парсить мемберов
+        # TODO: парсить мемберов
         mapping = lambda x: dict(
             {
                 'id': x.id,
-                'item_type':'relation',
+                'item_type': 'relation',
                 'lat': self._safe_cast(x.center_lat, float),
                 'lon': self._safe_cast(x.center_lon, float),
                 'attributes': x.attributes
@@ -74,16 +78,16 @@ class OverpassWrapper:
         except(ValueError, TypeError):
             return default
 
-
-
     # TODO: тесты на корректность парсинга
     @staticmethod
     def overpass_to_df(features, droplevel_level=0, droplevel_axis=1):
         """
         Parse data from Overpass API to pandas.DataFrame
-        :param features: array-like
-        :return:
-        pandas.DataFrame
+         :param features: array-like
+         :param droplevel_level: parameter for pandas.DataFrame 'droplevel' method
+         :param droplevel_axis: parameter for pandas.DataFrame 'droplevel' method
+         :return:
+         pandas.DataFrame
         """
         colnames_expected = ['type', 'id', 'geometry', 'properties']
         df = pd.DataFrame(features)
@@ -91,15 +95,16 @@ class OverpassWrapper:
         if not all(name in df.columns for name in colnames_expected):
             logger.warning(f'Colnames are expected: {colnames_expected}, but passed: {df.columns}')
         df = df.agg({'type': lambda x: x, 'id': lambda x: x, 'geometry': pd.Series, 'properties': pd.Series})
-        if (droplevel_axis != None) and (droplevel_level != None):
+        if (droplevel_axis is not None) and (droplevel_level is not None):
             df = df.droplevel(level=droplevel_level, axis=droplevel_axis)
         return df
 
 
-class SRC_Transformer:
+class SRCTransformer:
     def __init__(self, source_crs="EPSG:4326", target_crs="EPSG:3857"):
         """Transforms SRC.
-        # EPSG:3857 - Web Mercator, Google Web Mercator, Spherical Mercator, WGS 84 Web Mercator или WGS 84 / Pseudo-Mercator
+        # EPSG:3857 - Web Mercator, Google Web Mercator, Spherical Mercator,
+         WGS 84 Web Mercator или WGS 84 / Pseudo-Mercator
         # EPSG:4326 - WGS 84 -- WGS84 - World Geodetic System 1984, used in GPS
         """
         # TODO: дополнить другими SRC
