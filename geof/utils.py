@@ -51,9 +51,9 @@ class OverpassWrapper:
         self.ways = data.ways
         self.relations = data.relations
         res = [
-            *map(self.parse_nodes, self.nodes),
-            *map(self.parse_ways, self.ways),
-            *map(self.parse_relations, self.relations)
+            *self.parse_nodes(self.nodes),
+            *self.parse_ways(self.ways),
+            *self.parse_relations(self.relations)
         ]
         return res
 
