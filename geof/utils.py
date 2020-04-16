@@ -143,6 +143,6 @@ class GeoPlot:
                    tooltips=tooltips)
         p.add_tile(self.provider)
         p.circle('x', 'y', source=data)
-        p.hover.policy = 'follow_mouse'
+        p.hover.point_policy = 'follow_mouse'
         show(p)
         return
