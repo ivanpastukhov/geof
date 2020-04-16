@@ -1,23 +1,64 @@
 import overpass
+import overpy
 from pyproj import Transformer
 import pandas as pd
 import logging
 
-logger = logging.getLogger('geof.minitools')
+logger = logging.getLogger('geof.utils')
 logger.setLevel(logging.DEBUG)
 
 
+## TODO: добавить проверку статуса на сервере OSM
 class OverpassWrapper:
     def __init__(self):
+        self.api = overpy.Overpass()
         return
 
-    ## Показать доступные теги
-    # def ...
+    def request_data(self, query):
+        self.data = self.api.query(query)
 
-    ## Загрузить объекты (ноды, узлы) для выбранного тега/тегов
-    # def ...
+    def parse_nodes(self, nodes):
+        mapping = lambda x: dict(
+            {
+                'id': x.id, 'lat': float(x.lat), 'lon': float(x.lon),
+                'attributes': x.attributes
+            },
+            **x.tags)
+        return map(mapping, nodes)
 
-    ## Распарсить датку с апишки
+    def parse_ways(self, ways):
+        ## TODO: парсить ноды в ways
+        mapping = lambda x: dict(
+            {
+                'id': x.id, 'lat': float(x.center_lat), 'lon': float(x.center_lon),
+                'attributes': x.attributes
+            },
+            **x.tags)
+        return map(mapping, ways)
+
+    def parse_relations(self, relations):
+        ## TODO: парсить мемберов
+        mapping = lambda x: dict(
+            {
+                'id': x.id, 'lat': float(x.center_lat), 'lon': float(x.center_lon),
+                'attributes': x.attributes
+            },
+            **x.tags)
+        return map(mapping, relations)
+
+    def parse_response(self, data):
+        self.nodes = data.nodes
+        self.ways = data.ways
+        self.relations = data.relations
+        res = [
+            *map(self.parse_nodes, self.nodes),
+            *map(self.parse_ways, self.ways),
+            *map(self.parse_relations, self.relations)
+        ]
+        return res
+
+
+
     # TODO: тесты на корректность парсинга
     @staticmethod
     def overpass_to_df(features, droplevel_level=0, droplevel_axis=1):
@@ -53,3 +94,6 @@ class SRC_Transformer:
         """Transforms SRC from EPSG:4326 (WGS84) to EPSG:3857 (Web Mercator)"""
         return self.transformer.transform(lat, lon)
 
+import overpy
+
+overpy.Node.
