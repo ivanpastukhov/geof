@@ -3,6 +3,7 @@ import overpy
 from pyproj import Transformer
 import pandas as pd
 import logging
+import numpy as np
 
 logger = logging.getLogger('geof.utils')
 logger.setLevel(logging.DEBUG)
@@ -20,7 +21,9 @@ class OverpassWrapper:
     def parse_nodes(self, nodes):
         mapping = lambda x: dict(
             {
-                'id': x.id, 'lat': float(x.lat), 'lon': float(x.lon),
+                'id': x.id,
+                'lat': self._safe_cast(x.lat, float),
+                'lon': self._safe_cast(x.lon, float),
                 'attributes': x.attributes
             },
             **x.tags)
@@ -30,7 +33,9 @@ class OverpassWrapper:
         ## TODO: парсить ноды в ways
         mapping = lambda x: dict(
             {
-                'id': x.id, 'lat': float(x.center_lat), 'lon': float(x.center_lon),
+                'id': x.id,
+                'lat': self._safe_cast(x.center_lat, float),
+                'lon': self._safe_cast(x.center_lon, float),
                 'attributes': x.attributes
             },
             **x.tags)
@@ -40,7 +45,9 @@ class OverpassWrapper:
         ## TODO: парсить мемберов
         mapping = lambda x: dict(
             {
-                'id': x.id, 'lat': float(x.center_lat), 'lon': float(x.center_lon),
+                'id': x.id,
+                'lat': self._safe_cast(x.center_lat, float),
+                'lon': self._safe_cast(x.center_lon, float),
                 'attributes': x.attributes
             },
             **x.tags)
@@ -56,6 +63,13 @@ class OverpassWrapper:
             *self.parse_relations(self.relations)
         ]
         return res
+
+    @staticmethod
+    def _safe_cast(value, to_type, default=np.NaN):
+        try:
+            return to_type(value)
+        except(ValueError, TypeError):
+            return default
 
 
 
