@@ -22,6 +22,7 @@ class OverpassWrapper:
         mapping = lambda x: dict(
             {
                 'id': x.id,
+                'item_type':'node',
                 'lat': self._safe_cast(x.lat, float),
                 'lon': self._safe_cast(x.lon, float),
                 'attributes': x.attributes
@@ -34,6 +35,7 @@ class OverpassWrapper:
         mapping = lambda x: dict(
             {
                 'id': x.id,
+                'item_type':'way',
                 'lat': self._safe_cast(x.center_lat, float),
                 'lon': self._safe_cast(x.center_lon, float),
                 'attributes': x.attributes
@@ -46,6 +48,7 @@ class OverpassWrapper:
         mapping = lambda x: dict(
             {
                 'id': x.id,
+                'item_type':'relation',
                 'lat': self._safe_cast(x.center_lat, float),
                 'lon': self._safe_cast(x.center_lon, float),
                 'attributes': x.attributes
