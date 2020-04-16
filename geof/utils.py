@@ -1,9 +1,10 @@
-import overpass
 import overpy
 from pyproj import Transformer
-import pandas as pd
 import logging
 import numpy as np
+
+from bokeh.plotting import figure, output_file, show
+from bokeh.tile_providers import CARTODBPOSITRON, get_provider
 
 logger = logging.getLogger('geof.utils')
 logger.setLevel(logging.DEBUG)
@@ -115,3 +116,33 @@ class SRCTransformer:
     def transform(self, lat, lon):
         """Transforms SRC from EPSG:4326 (WGS84) to EPSG:3857 (Web Mercator)"""
         return self.transformer.transform(lat, lon)
+
+
+class GeoPlot:
+    # TODO: добавить других провайдеров
+    def __init__(self):
+        self.provider = get_provider(CARTODBPOSITRON)
+        return
+
+    def plot(self, x, y, id, category=None):
+        data = {
+            'id':id,
+            'x':x,
+            'y':y
+        }
+        tooltips = [
+            ('id','@id')
+        ]
+        if category is not None:
+            data['category'] = category
+            tooltips.append(('category','@category'))
+        p = figure(x_range=(min(x), max(x)),
+                   y_range=(min(y), max(y)),
+                   x_axis_type='mercator',
+                   y_axis_type='mercator',
+                   tooltips=tooltips)
+        p.add_tile(self.provider)
+        p.circle(x, y, data=data)
+        p.hover.policy = 'follow_mouse'
+        show(p)
+        return

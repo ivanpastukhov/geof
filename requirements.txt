@@ -1,3 +1,5 @@
+overpy
+pyproj
 bokeh==2.0.1
 cycler==0.10.0
 Jinja2==2.11.1
