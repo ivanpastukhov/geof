@@ -128,8 +128,7 @@ class GeoPlot:
         data = {
             'id':id,
             'x':x,
-            'y':y,
-            'size':size
+            'y':y
         }
         tooltips = [
             ('id','@id')
@@ -143,7 +142,8 @@ class GeoPlot:
                    y_axis_type='mercator',
                    tooltips=tooltips)
         p.add_tile(self.provider)
-        if data.get('size') is not None:
+        if size is not None:
+            data['size'] = size
             p.circle('x', 'y', size='size', source=data)
         else:
             p.circle('x', 'y', source=data)
