@@ -124,7 +124,7 @@ class GeoPlot:
         self.provider = get_provider(CARTODBPOSITRON)
         return
 
-    def plot(self, x, y, id, category=None, size=0.1):
+    def plot(self, x, y, id, category=None, size=None):
         data = {
             'id':id,
             'x':x,
@@ -143,7 +143,10 @@ class GeoPlot:
                    y_axis_type='mercator',
                    tooltips=tooltips)
         p.add_tile(self.provider)
-        p.circle('x', 'y', source=data)
+        if data.get('size') is not None:
+            p.circle('x', 'y', size='size', source=data)
+        else:
+            p.circle('x', 'y', source=data)
         p.hover.point_policy = 'follow_mouse'
         show(p)
         return
