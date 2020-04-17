@@ -3,7 +3,7 @@ from pyproj import Transformer
 import logging
 import numpy as np
 
-from bokeh.plotting import figure, output_file, show
+from bokeh.plotting import figure, show
 from bokeh.tile_providers import CARTODBPOSITRON, get_provider
 
 logger = logging.getLogger('geof.utils')
@@ -124,11 +124,12 @@ class GeoPlot:
         self.provider = get_provider(CARTODBPOSITRON)
         return
 
-    def plot(self, x, y, id, category=None):
+    def plot(self, x, y, id, category=None, size=0.1):
         data = {
             'id':id,
             'x':x,
-            'y':y
+            'y':y,
+            'size':size
         }
         tooltips = [
             ('id','@id')
@@ -142,7 +143,7 @@ class GeoPlot:
                    y_axis_type='mercator',
                    tooltips=tooltips)
         p.add_tile(self.provider)
-        p.circle('x', 'y', source=data)
+        p.circle('x', 'y', source=data, size='size')
         p.hover.point_policy = 'follow_mouse'
         show(p)
         return
