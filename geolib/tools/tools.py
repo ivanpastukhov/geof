@@ -14,7 +14,7 @@ def timeit(logger):
             te = time.time()
             runtime = te - ts
             logger.debug(f'takes {runtime} !')
-            logger.warning(f'takes {runtime} !')
+            logger.warning('AAAAAAAAA!!!!!!!')
             return result
         return wrapper
     return decorator
