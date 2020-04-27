@@ -2,6 +2,7 @@ import overpy
 from pyproj import Transformer
 import logging
 import numpy as np
+from .tools import timeit
 
 logger = logging.getLogger('geolib.features.utils')
 logger.setLevel(logging.DEBUG)
@@ -16,6 +17,7 @@ class OverpassWrapper:
         self.relations = None
         return
 
+    @timeit(logger)
     def request_data(self, query):
         return self.api.query(query)
 

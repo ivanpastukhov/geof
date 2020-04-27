@@ -4,7 +4,7 @@ from bokeh.models import HoverTool
 from bokeh.tile_providers import CARTODBPOSITRON, get_provider
 
 
-logger = logging.getLogger('geolib.features.utils')
+logger = logging.getLogger('geolib.vizualization.geoplot')
 logger.setLevel(logging.DEBUG)
 
 
