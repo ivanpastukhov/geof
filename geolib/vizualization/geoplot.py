@@ -13,29 +13,17 @@ class GeoPlot:
         self.provider = get_provider(CARTODBPOSITRON)
         return
 
-    def plot(self, x, y, idx, category=None, size=None):
-        data = {
-            'id': idx,
-            'x': x,
-            'y': y
-        }
-        tooltips = [
-            ('id', '@id')
-        ]
-        if category is not None:
-            data['category'] = category
-            tooltips.append(('category', '@category'))
+    def plot(self, x, y, **kwargs):
+        """
+        :param kwargs:
+        :return:
+        """
         p = figure(x_range=(min(x), max(x)),
                    y_range=(min(y), max(y)),
                    x_axis_type='mercator',
-                   y_axis_type='mercator',
-                   tooltips=tooltips)
+                   y_axis_type='mercator')
         p.add_tile(self.provider)
-        if size is not None:
-            data['size'] = size
-            p.circle('x', 'y', size='size', source=data)
-        else:
-            p.circle('x', 'y', source=data)
+        p.circle(**kwargs)
         p.hover.point_policy = 'follow_mouse'
         show(p)
         return
