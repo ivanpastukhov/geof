@@ -9,7 +9,7 @@ setup(
     author_email='ivanpastukhoff@gmail.com',
     license='unlicense',
     packages=[
-        'geolib'
+        'geolib.tools'
               ],
     zip_safe=False
 )
