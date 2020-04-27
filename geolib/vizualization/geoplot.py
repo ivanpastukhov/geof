@@ -57,7 +57,7 @@ class GeoPlot:
                    y_axis_type='mercator',
                    )
         p = self.__add_hover(p, tooltips)
-        p.add_tile(self.provider)
+        p.add_tile(get_provider(CARTODBPOSITRON))
         p.circle(x='x',
                  y='y',
                  size='size',
