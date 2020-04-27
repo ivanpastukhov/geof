@@ -5,7 +5,7 @@ from bokeh.tile_providers import CARTODBPOSITRON, get_provider
 
 
 logger = logging.getLogger('geolib.vizualization.geoplot')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 
 class GeoPlot:
