@@ -2,7 +2,7 @@ import overpy
 from pyproj import Transformer
 import logging
 import numpy as np
-from .tools import timeit
+from tools.tools import timeit
 
 logger = logging.getLogger('geolib.features.utils')
 logger.setLevel(logging.DEBUG)
