@@ -5,7 +5,7 @@ import time
 def timeit(logger):
     print('logger is called!')
     def decorator(func):
-        @functools.wraps
+        @functools.wraps(func)
         def wrapper(*args, **kwargs):
             ts = time.time()
             result = func(*args, **kwargs)
