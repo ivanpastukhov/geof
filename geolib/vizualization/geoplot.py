@@ -50,7 +50,7 @@ class GeoPlot:
 
     def plot_points(self, x, y, size=None, color=None, category=None):
         source = self._build_source(x, y, size, color, category)
-        tooltips = self._build_tooltips()
+        tooltips = self._build_tooltips(category)
         p = figure(x_range=(min(x), max(x)),
                    y_range=(min(y), max(y)),
                    x_axis_type='mercator',
