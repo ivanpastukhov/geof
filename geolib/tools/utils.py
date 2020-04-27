@@ -19,6 +19,7 @@ class OverpassWrapper:
 
     @timeit(logger)
     def test_instance(self):
+        logger.debug(msg=f'logger: instance created')
         print('instance created')
         return
 
