@@ -8,6 +8,7 @@ def timeit(logger):
         print('gonna decorate')
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
+            print('now wrapped')
             ts = time.time()
             result = func(*args, **kwargs)
             te = time.time()
