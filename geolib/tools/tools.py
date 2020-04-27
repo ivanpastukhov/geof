@@ -10,7 +10,7 @@ def timeit(logger):
             result = func(*args, **kwargs)
             te = time.time()
             runtime = te - ts
-            logger.warning(f'takes {runtime} !')
+            logger.info("{} ran in {}s".format(func.__name__, round(runtime, 2)))
             return result
         return wrapper
     return decorator
