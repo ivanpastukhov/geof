@@ -4,8 +4,11 @@ import logging
 import numpy as np
 from .tools import timeit
 
-logger = logging.getLogger('geolib.features.utils')
-logger.setLevel(logging.INFO)
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+                    datefmt='%m-%d %H:%M')
+logger = logging.getLogger('geolib.tools.utils')
+logger.setLevel(logging.DEBUG)
 
 
 # TODO: добавить проверку статуса на сервере OSM

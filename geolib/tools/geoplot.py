@@ -4,8 +4,11 @@ from bokeh.models import HoverTool
 from bokeh.tile_providers import CARTODBPOSITRON, get_provider
 
 
-logger = logging.getLogger('geolib.vizualization.geoplot')
-logger.setLevel(logging.INFO)
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+                    datefmt='%m-%d %H:%M')
+logger = logging.getLogger('geolib.tools.geoplot')
+logger.setLevel(logging.DEBUG)
 
 
 class GeoPlot:
