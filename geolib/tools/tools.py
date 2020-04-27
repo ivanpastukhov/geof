@@ -13,7 +13,8 @@ def timeit(logger):
             result = func(*args, **kwargs)
             te = time.time()
             runtime = te - ts
-            logger.debug(msg=f'takes {runtime} !')
+            logger.debug(f'takes {runtime} !')
+            logger.warning(f'takes {runtime} !')
             return result
         return wrapper
     return decorator
