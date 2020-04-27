@@ -10,11 +10,32 @@ logger.setLevel(logging.DEBUG)
 class GeoPlot:
     # TODO: добавить других провайдеров
     def __init__(self):
+        # self.provider = get_provider(CARTODBPOSITRON)
+        # self.x = None
+        # self.y = None
+        self.default_size = 4
+        self.default_color = 'blue'
+        # self.default_category = None
         self.tooltips = [
             ("index", "$index"),
             ("(x,y)", "($x, $y)")
         ]
         return
+
+    def _build_source(self, x, y, size, color, category):
+        source = {
+            'x': x,
+            'y': y,
+            'size': self.default_size,
+            'color': self.default_color
+        }
+        if size is not None:
+            source['size'] = size
+        if color is not None:
+            source['color'] = color
+        if category is not None:
+            source['category'] = category
+        return source
 
     def _build_tooltips(self, category):
         if category is not None:
@@ -28,6 +49,7 @@ class GeoPlot:
         return p
 
     def plot_points(self, x, y, size=4, color='blue', category=None):
+        source = self._build_source(x, y, size, color, category)
         tooltips = self._build_tooltips(category)
         p = figure(x_range=(min(x), max(x)),
                    y_range=(min(y), max(y)),
@@ -41,6 +63,7 @@ class GeoPlot:
                  size=size,
                  fill_color=color,
                  line_color=color,
+                 source=source
                  )
         show(p)
         return
