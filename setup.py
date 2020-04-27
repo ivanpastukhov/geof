@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='geolib',
@@ -8,6 +8,6 @@ setup(
     author='Ivan Pastukhov',
     author_email='ivanpastukhoff@gmail.com',
     license='unlicense',
-    packages=['geolib', 'features', 'vizualization'],
+    packages=find_packages(),
     zip_safe=False
 )
