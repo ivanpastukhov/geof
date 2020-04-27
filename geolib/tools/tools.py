@@ -3,6 +3,7 @@ import time
 
 
 def timeit(logger):
+    print('logger is called!')
     def decorator(func):
         @functools.wraps
         def wrapper(*args, **kwargs):
