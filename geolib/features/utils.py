@@ -6,7 +6,7 @@ import numpy as np
 from bokeh.plotting import figure, show
 from bokeh.tile_providers import CARTODBPOSITRON, get_provider
 
-logger = logging.getLogger('geof.utils')
+logger = logging.getLogger('geolib.utils')
 logger.setLevel(logging.DEBUG)
 
 
