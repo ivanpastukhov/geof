@@ -21,11 +21,6 @@ class OverpassWrapper:
         return
 
     @timeit(logger)
-    def test_instance(self):
-        print('instance created')
-        return
-
-    @timeit(logger)
     def request_data(self, query):
         return self.api.query(query)
 
@@ -67,6 +62,7 @@ class OverpassWrapper:
             **x.tags)
         return map(mapping, relations)
 
+    @timeit(logger)
     def parse_response(self, data):
         nodes = data.nodes
         ways = data.ways
