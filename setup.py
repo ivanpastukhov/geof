@@ -8,6 +8,6 @@ setup(
     author='Ivan Pastukhov',
     author_email='ivanpastukhoff@gmail.com',
     license='unlicense',
-    packages=find_packages(),
+    packages=['geolib', 'geolib.features', 'geolib.vizualization'],
     zip_safe=False
 )
