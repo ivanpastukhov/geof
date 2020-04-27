@@ -10,6 +10,7 @@ logger.setLevel(logging.DEBUG)
 
 # TODO: добавить проверку статуса на сервере OSM
 class OverpassWrapper:
+    @timeit(logger)
     def __init__(self):
         self.api = overpy.Overpass()
         self.nodes = None
