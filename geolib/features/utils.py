@@ -11,7 +11,6 @@ logger.setLevel(logging.DEBUG)
 class OverpassWrapper:
     def __init__(self):
         self.api = overpy.Overpass()
-        self.data = None
         self.nodes = None
         self.ways = None
         self.relations = None
@@ -59,13 +58,13 @@ class OverpassWrapper:
         return map(mapping, relations)
 
     def parse_response(self, data):
-        self.nodes = data.nodes
-        self.ways = data.ways
-        self.relations = data.relations
+        nodes = data.nodes
+        ways = data.ways
+        relations = data.relations
         res = [
-            *self._parse_nodes(self.nodes),
-            *self._parse_ways(self.ways),
-            *self._parse_relations(self.relations)
+            *self._parse_nodes(nodes),
+            *self._parse_ways(ways),
+            *self._parse_relations(relations)
         ]
         return res
 
