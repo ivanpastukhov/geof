@@ -8,6 +8,6 @@ setup(
     author='Ivan Pastukhov',
     author_email='ivanpastukhoff@gmail.com',
     license='unlicense',
-    packages=find_packages()
+    packages=find_packages(),
     zip_safe=False
 )
