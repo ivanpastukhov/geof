@@ -2,7 +2,7 @@ import overpy
 from pyproj import Transformer
 import logging
 import numpy as np
-from .tools import timeit
+from geolib.tools.tools import timeit
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',

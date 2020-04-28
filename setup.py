@@ -8,8 +8,6 @@ setup(
     author='Ivan Pastukhov',
     author_email='ivanpastukhoff@gmail.com',
     license='unlicense',
-    packages=[
-        'geolib.tools'
-              ],
+    packages=find_packages()
     zip_safe=False
 )
